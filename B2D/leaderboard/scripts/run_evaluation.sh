@@ -1,10 +1,12 @@
 #!/bin/bash
-# Must set CARLA_ROOT
-export CARLA_ROOT=YOUR_CARLA_PATH
+# CARLA_ROOT 는 env override 가능하도록 변경 (예전엔 YOUR_CARLA_PATH 가 박혀 있어 즉시 실패).
+export CARLA_ROOT=${CARLA_ROOT:-/home/Humble/Carla/Carla_0.9.15}
 export CARLA_SERVER=${CARLA_ROOT}/CarlaUE4.sh
+# CARLA Python egg — b2d_zoo (py3.8) 환경 기준 기본값. PY_TAG env 로 override 가능.
+export PY_TAG=${PY_TAG:-py3.8}
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
-export PYTHONPATH=$PYTHONPATH:$CARLA_ROOT/PythonAPI/carla/dist/carla-0.9.15-py3.7-linux-x86_64.egg
+export PYTHONPATH=$PYTHONPATH:$CARLA_ROOT/PythonAPI/carla/dist/carla-0.9.15-${PY_TAG}-linux-x86_64.egg
 export PYTHONPATH=$PYTHONPATH:leaderboard
 export PYTHONPATH=$PYTHONPATH:leaderboard/team_code
 export PYTHONPATH=$PYTHONPATH:scenario_runner
