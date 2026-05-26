@@ -1,0 +1,13 @@
+# Bench2Drive 자체 ignore — Model/ 의 binary engine/ONNX 산출물과 pycache 제외
+# Model/ 의 .onnx / .pth 는 심링크지만, .engine / *.so 는 실제 빌드 산출물 (수십 MB)
+Model/**/*.engine
+Model/**/*_simplified.onnx
+Model/**/libplugins.so
+
+# Python pycache (Zoo/GenAD 백엔드 모듈 등)
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+
+# 빌드 로그 산출물
+*.log
