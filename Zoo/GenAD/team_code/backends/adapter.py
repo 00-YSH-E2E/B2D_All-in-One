@@ -9,6 +9,7 @@ from .base import BackendBase, OUT_NAMES
 from .pytorch_backend import PyTorchBackend
 from .onnx_backend import OnnxBackend
 from .trt_backend import TrtBackend
+from .dump import StepDumper
 
 
 # Default search root for engines / ONNX. Overridden by env var B2D_MODEL.
@@ -81,6 +82,9 @@ class BackendAdapter:
         self.backend = backend
         self._orig_extract_img_feat = None
         self._orig_head_forward = None
+        # Per-step dump infra (no-op unless GENAD_DUMP_DIR env set).
+        self.dumper = StepDumper.from_env()
+        self._step = 0
 
     @classmethod
     def install(cls, model, backend: BackendBase) -> "BackendAdapter":
@@ -94,6 +98,7 @@ class BackendAdapter:
 
     def _patch_extract_img_feat(self):
         backend = self.backend
+        adapter = self
         self._orig_extract_img_feat = self.model.extract_img_feat
 
         def _patched_extract_img_feat(_self, img, img_metas, len_queue=None):
@@ -108,6 +113,8 @@ class BackendAdapter:
             else:
                 B, N = 1, img.size(0)
                 img_in = img
+            if adapter.dumper.enabled:
+                adapter.dumper.dump("backbone_in", adapter._step, {"img": img_in})
             feat = backend.run_backbone(img_in)
             # Caller expects list[Tensor[B, N, C, h, w]]
             if feat.dim() == 4:
@@ -115,12 +122,15 @@ class BackendAdapter:
                 feat = feat.view(B, BN // B, C, h, w)
             elif feat.dim() == 5 and feat.size(0) != B:
                 feat = feat.view(B, -1, feat.size(-3), feat.size(-2), feat.size(-1))
+            if adapter.dumper.enabled:
+                adapter.dumper.dump("backbone_out", adapter._step, {"features_l0": feat})
             return [feat]
 
         self.model.extract_img_feat = types.MethodType(_patched_extract_img_feat, self.model)
 
     def _patch_head_forward(self):
         backend = self.backend
+        adapter = self
         head = self.model.pts_bbox_head
         self._orig_head_forward = head.forward
         # If the backend has a head fallback (e.g. OnnxBackend without working
@@ -169,11 +179,27 @@ class BackendAdapter:
             else:
                 prev_bev_in = prev_bev
 
+            if adapter.dumper.enabled:
+                adapter.dumper.dump("head_in", adapter._step, {
+                    "mlvl_feats_0": mlvl0,
+                    "shift": shift,
+                    "lidar2img": lidar2img,
+                    "can_bus": can_bus,
+                    "prev_bev": prev_bev_in,
+                }, meta={"prev_bev_was_none": prev_bev is None,
+                         "can_bus_raw": can_bus_np.tolist()})
+
             outs = backend.run_head(mlvl0, shift, lidar2img, can_bus, prev_bev_in)
             # Sanity: all 9 keys present.
             missing = [k for k in OUT_NAMES if k not in outs]
             if missing:
                 raise RuntimeError(f"backend missing keys {missing}; got {list(outs.keys())}")
+
+            if adapter.dumper.enabled:
+                adapter.dumper.dump("head_out", adapter._step,
+                                    {k: outs[k] for k in OUT_NAMES})
+                adapter.dumper.flush(adapter._step)
+                adapter._step += 1
             return outs
 
         head.forward = types.MethodType(_patched_head_forward, head)
