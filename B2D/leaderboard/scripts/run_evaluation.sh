@@ -9,6 +9,12 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
 export PYTHONPATH=$PYTHONPATH:$CARLA_ROOT/PythonAPI/carla/dist/carla-0.9.15-${PY_TAG}-linux-x86_64.egg
 export PYTHONPATH=$PYTHONPATH:leaderboard
 export PYTHONPATH=$PYTHONPATH:leaderboard/team_code
+# GenAD agent (vad_b2d_agent.py) lives under Bench2DriveZoo/team_code/ via the
+# B2D/Bench2DriveZoo symlink. Need both the team_code dir (so the agent module
+# resolves) and the B2D root (so 'from Bench2DriveZoo.team_code.* import ...'
+# inside the agent works).
+export PYTHONPATH=$PYTHONPATH:Bench2DriveZoo/team_code
+export PYTHONPATH=$PYTHONPATH:.
 export PYTHONPATH=$PYTHONPATH:scenario_runner
 export SCENARIO_RUNNER_ROOT=scenario_runner
 
