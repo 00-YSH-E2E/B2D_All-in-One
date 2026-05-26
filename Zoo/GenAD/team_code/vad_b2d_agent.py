@@ -400,7 +400,48 @@ class VadAgent(autonomous_agent.AutonomousAgent):
             if key != 'img_metas':
                 if torch.is_tensor(data[0]):
                     data[0] = data[0].to(self.device)
+
+        # Agent-level dump (works for ALL backends incl. PT).
+        if getattr(self, '_backend_adapter', None) is not None \
+                and self._backend_adapter.dumper.enabled:
+            d = self._backend_adapter.dumper
+            agent_meta = {}
+            agent_tensors = {}
+            for key, data in input_data_batch.items():
+                if key == 'img_metas':
+                    if data and len(data) > 0:
+                        m = data[0]
+                        if isinstance(m, list) and m:
+                            m = m[0]
+                        if isinstance(m, dict):
+                            agent_meta.update({
+                                'scene_token': m.get('scene_token'),
+                                'can_bus': m.get('can_bus'),
+                                'lidar2img': m.get('lidar2img'),
+                            })
+                else:
+                    if data and torch.is_tensor(data[0]):
+                        agent_tensors[key] = data[0]
+            d.dump('agent_in', self._backend_adapter._step,
+                   agent_tensors, meta=agent_meta)
+
         output_data_batch = self.model(input_data_batch, return_loss=False, rescale=True)
+
+        # Agent-level output dump (post-model). For PT this is the only adapter-
+        # visible dump scope. For ONNX/TRT this complements adapter-level head_out.
+        if getattr(self, '_backend_adapter', None) is not None \
+                and self._backend_adapter.dumper.enabled:
+            d = self._backend_adapter.dumper
+            pts = output_data_batch[0].get('pts_bbox', {})
+            ego_fut = pts.get('ego_fut_preds')
+            if ego_fut is not None:
+                d.dump('agent_out', self._backend_adapter._step,
+                       {'ego_fut_preds': ego_fut})
+            d.flush(self._backend_adapter._step)
+            # For PT backend, no adapter-level head.forward fires, so the step
+            # counter isn't advanced there. Advance here in that case.
+            if self._backend_adapter._orig_head_forward is None:
+                self._backend_adapter._step += 1
         all_out_truck_d1 = output_data_batch[0]['pts_bbox']['ego_fut_preds'].cpu().numpy()
         all_out_truck =  np.cumsum(all_out_truck_d1,axis=1)
         out_truck = all_out_truck[command]
