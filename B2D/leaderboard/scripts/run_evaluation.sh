@@ -13,6 +13,7 @@ export PYTHONPATH=$PYTHONPATH:leaderboard/team_code
 # B2D/Bench2DriveZoo symlink. Need both the team_code dir (so the agent module
 # resolves) and the B2D root (so 'from Bench2DriveZoo.team_code.* import ...'
 # inside the agent works).
+export PYTHONPATH=$PYTHONPATH:Bench2DriveZoo
 export PYTHONPATH=$PYTHONPATH:Bench2DriveZoo/team_code
 export PYTHONPATH=$PYTHONPATH:.
 export PYTHONPATH=$PYTHONPATH:scenario_runner
