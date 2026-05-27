@@ -57,7 +57,7 @@ for ((i=0; i<$length; i++ )); do
     echo -e "\033[32m ROUTES:  $ROUTES \033[0m"
     echo -e "\033[32m CHECKPOINT_ENDPOINT: $CHECKPOINT_ENDPOINT \033[0m"
     echo -e "***********************************************************************************"
-    bash -e leaderboard/scripts/run_evaluation.sh $PORT $TM_PORT $IS_BENCH2DRIVE $ROUTES $TEAM_AGENT $TEAM_CONFIG $CHECKPOINT_ENDPOINT $SAVE_PATH $PLANNER_TYPE $GPU_RANK 2>&1 > ${BASE_ROUTES}_${TASKS[$i]}_DriveTransformer_${E2E_BACKEND}_${PLANNER_TYPE}.log &
+    bash -e leaderboard/scripts/run_evaluation.sh $PORT $TM_PORT $IS_BENCH2DRIVE $ROUTES $TEAM_AGENT $TEAM_CONFIG $CHECKPOINT_ENDPOINT $SAVE_PATH $PLANNER_TYPE $GPU_RANK > ${BASE_ROUTES}_${TASKS[$i]}_DriveTransformer_${E2E_BACKEND}_${PLANNER_TYPE}.log 2>&1 &
     sleep 5
 done
 wait
