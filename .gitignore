@@ -11,3 +11,10 @@ Model/**/libplugins.so
 
 # 빌드 로그 산출물
 *.log
+
+# DT vendored upstream — only our agent edits + dump util tracked (force-added).
+Zoo/DriveTransformer/*
+!Zoo/DriveTransformer/team_code/
+Zoo/DriveTransformer/team_code/*
+!Zoo/DriveTransformer/team_code/drivetransformer_b2d_agent.py
+!Zoo/DriveTransformer/team_code/dump.py
