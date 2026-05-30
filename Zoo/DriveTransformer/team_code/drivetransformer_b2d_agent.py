@@ -68,18 +68,28 @@ class DriveTransformerAgent(autonomous_agent.AutonomousAgent):
                         _module_path = _module_path + '.' + m
                     print(_module_path)
                     plg_lib = importlib.import_module(_module_path)  
-        self.model = build_model(cfg.model, train_cfg=cfg.get('train_cfg'), test_cfg=cfg.get('test_cfg'))
-        # load checkpoint
-        if self.ckpt_path != "None":
-            ckpt = torch.load(self.ckpt_path)
-            ckpt = ckpt["state_dict"]
-            new_state_dict = OrderedDict()
-            for key, value in ckpt.items():
-                new_key = key.replace("model.","").replace("._orig_mod", "")
-                new_state_dict[new_key] = value
-            print(self.model.load_state_dict(new_state_dict, strict = False))
-        wrap_fp16_model(self.model)
-        self.model.to(self.device)
+        self.backend = os.environ.get('E2E_BACKEND', 'pytorch')
+        if self.backend == 'trt':
+            # TRT 백엔드 — .pth 안 올리고 backbone+head 엔진으로 추론
+            try:
+                from team_code.dt_trt import DtTrt
+            except Exception:
+                from dt_trt import DtTrt
+            self.dt_trt = DtTrt(device=self.device)
+            self.model = None
+        else:
+            self.model = build_model(cfg.model, train_cfg=cfg.get('train_cfg'), test_cfg=cfg.get('test_cfg'))
+            # load checkpoint
+            if self.ckpt_path != "None":
+                ckpt = torch.load(self.ckpt_path)
+                ckpt = ckpt["state_dict"]
+                new_state_dict = OrderedDict()
+                for key, value in ckpt.items():
+                    new_key = key.replace("model.","").replace("._orig_mod", "")
+                    new_state_dict[new_key] = value
+                print(self.model.load_state_dict(new_state_dict, strict = False))
+            wrap_fp16_model(self.model)
+            self.model.to(self.device)
 
         # DT 회피 디버깅 recorder — env DT_DEBUG_DIR 켜면 run당 단일 NPZ + viz 이미지 저장.
         try:
@@ -87,7 +97,8 @@ class DriveTransformerAgent(autonomous_agent.AutonomousAgent):
         except Exception:
             from dt_debug_dump import DebugRecorder
         self._dbg = DebugRecorder.from_env()
-        self.model.eval()
+        if self.model is not None:
+            self.model.eval()
 
         self.test_pipeline = []
         self.past_ego_pos_cache = []
@@ -483,7 +494,10 @@ class DriveTransformerAgent(autonomous_agent.AutonomousAgent):
                             input_data_batch[key][0] = input_data_batch[key][0].to(torch.float32)
         step_start_time = time.time()
         # model inference
-        output_data_batch = self.model(input_data_batch, return_loss=False, rescale=True)
+        if self.backend == 'trt':
+            output_data_batch = self.dt_trt.infer(input_data_batch)
+        else:
+            output_data_batch = self.model(input_data_batch, return_loss=False, rescale=True)
         self.step_time_avg.append(float(time.time()-step_start_time))
 
         if len(self.step_time_avg)==20:
@@ -584,7 +598,8 @@ class DriveTransformerAgent(autonomous_agent.AutonomousAgent):
     def destroy(self):
         if getattr(self, '_dbg', None) is not None:
             self._dbg.save()
-        del self.model
+        if getattr(self, 'model', None) is not None:
+            del self.model
         torch.cuda.empty_cache()
 
     def gps_to_location(self, gps):
