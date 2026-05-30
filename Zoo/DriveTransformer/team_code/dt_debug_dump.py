@@ -60,9 +60,11 @@ class DebugRecorder:
         if self.save_img:
             os.makedirs(os.path.join(self.dir, "bev"), exist_ok=True)
             os.makedirs(os.path.join(self.dir, "cam_front"), exist_ok=True)
+        self.save_every = int(os.environ.get("DT_DEBUG_SAVE_EVERY", 100))
         self._frames = []
         self._saved = False
-        print(f"[DT-DBG] recorder enabled -> {self.dir} (topk={self.topk}, max={self.max_frames})")
+        print(f"[DT-DBG] recorder enabled -> {self.dir} "
+              f"(topk={self.topk}, max={self.max_frames}, save_every={self.save_every})")
 
     @classmethod
     def from_env(cls):
@@ -97,6 +99,12 @@ class DebugRecorder:
             if not getattr(self, "_warned", False):
                 print(f"[DT-DBG] record skipped (error: {type(e).__name__}: {e})")
                 self._warned = True
+        # 중간 저장 — 강제종료/무한주행에도 dump.npz 가 항상 최신으로 남도록
+        if self.save_every and self._frames and len(self._frames) % self.save_every == 0:
+            try:
+                self._dump_to_disk(final=False)
+            except Exception:
+                pass
 
     @staticmethod
     def _extract_det(det):
@@ -129,6 +137,11 @@ class DebugRecorder:
         if not self.enabled or self._saved or not self._frames:
             return
         self._saved = True
+        self._dump_to_disk(final=True)
+
+    def _dump_to_disk(self, final=False):
+        if not self.enabled or not self._frames:
+            return
         F = len(self._frames)
         K = self.topk
         box_dim = max((f["boxes"].shape[1] for f in self._frames if f["boxes"].size), default=9)
@@ -164,7 +177,7 @@ class DebugRecorder:
         with open(os.path.join(self.dir, "meta.json"), "w") as fp:
             json.dump(dict(frames=F, topk=K, box_dim=int(box_dim),
                            dir=self.dir, saved_at=time.time()), fp, indent=2)
-        print(f"[DT-DBG] saved {F} frames -> {npz_path}")
+        print(f"[DT-DBG] {'saved (final)' if final else 'checkpoint'} {F} frames -> {npz_path}")
 
     def _write_csv(self):
         cols = ["step", "timestamp", "speed", "cmd_near", "cmd_far",
