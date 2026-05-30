@@ -16,5 +16,6 @@ Zoo/DriveTransformer/*
 Zoo/DriveTransformer/team_code/*
 !Zoo/DriveTransformer/team_code/drivetransformer_b2d_agent.py
 !Zoo/DriveTransformer/team_code/dump.py
+!Zoo/DriveTransformer/team_code/dt_debug_dump.py
 !Zoo/DriveTransformer/scripts/
 !Zoo/DriveTransformer/scripts/*.py

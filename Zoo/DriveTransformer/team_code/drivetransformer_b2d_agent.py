@@ -81,15 +81,12 @@ class DriveTransformerAgent(autonomous_agent.AutonomousAgent):
         wrap_fp16_model(self.model)
         self.model.to(self.device)
 
-        # DT step dumper — env GENAD_DUMP_DIR (이름은 공유, tag 로 분리) 켜면 작동.
+        # DT 회피 디버깅 recorder — env DT_DEBUG_DIR 켜면 run당 단일 NPZ + viz 이미지 저장.
         try:
-            from team_code.dump import StepDumper  # uses PYTHONPATH=DriveTransformer
+            from team_code.dt_debug_dump import DebugRecorder
         except Exception:
-            from dump import StepDumper  # fallback when team_code/ is on path
-        self._dumper = StepDumper.from_env()
-        self._dump_step = 0
-        if self._dumper.enabled:
-            print(f"[DT] StepDumper enabled → {self._dumper.dir}")
+            from dt_debug_dump import DebugRecorder
+        self._dbg = DebugRecorder.from_env()
         self.model.eval()
 
         self.test_pipeline = []
@@ -484,45 +481,11 @@ class DriveTransformerAgent(autonomous_agent.AutonomousAgent):
                         input_data_batch[key][0] = input_data_batch[key][0].to(self.device)
                         if input_data_batch[key][0].dtype==torch.float64:
                             input_data_batch[key][0] = input_data_batch[key][0].to(torch.float32)
-        # Dump agent-level input tensors + img_metas (works for ALL DT runs, no backend adapter).
-        if getattr(self, '_dumper', None) is not None and self._dumper.enabled:
-            agent_tensors = {}
-            agent_meta = {}
-            for key, data in input_data_batch.items():
-                if key == 'img_metas':
-                    if data and len(data) > 0:
-                        m = data[0]
-                        if isinstance(m, list) and m:
-                            m = m[0]
-                        if isinstance(m, dict):
-                            agent_meta.update({
-                                'scene_token': m.get('scene_token'),
-                                'can_bus': m.get('can_bus'),
-                                'lidar2img': m.get('lidar2img'),
-                            })
-                else:
-                    if data and torch.is_tensor(data[0]):
-                        agent_tensors[key] = data[0]
-            self._dumper.dump('agent_in', self._dump_step, agent_tensors, meta=agent_meta)
-
         step_start_time = time.time()
         # model inference
         output_data_batch = self.model(input_data_batch, return_loss=False, rescale=True)
         self.step_time_avg.append(float(time.time()-step_start_time))
 
-        # Dump agent-level outputs (DT has multiple ego prediction heads).
-        if getattr(self, '_dumper', None) is not None and self._dumper.enabled:
-            out0 = output_data_batch[0] if isinstance(output_data_batch, list) else output_data_batch
-            out_tensors = {}
-            for k in ('ego_fut_preds_fix_dist', 'ego_fut_preds_fix_time',
-                      'ego_traj_cls_scores', 'ego_fut_preds'):
-                v = out0.get(k) if isinstance(out0, dict) else None
-                if v is not None and torch.is_tensor(v):
-                    out_tensors[k] = v
-            if out_tensors:
-                self._dumper.dump('agent_out', self._dump_step, out_tensors)
-            self._dumper.flush(self._dump_step)
-            self._dump_step += 1
         if len(self.step_time_avg)==20:
             # print("Model Avg Step Time:", np.mean(self.step_time_avg))
             self.step_time_avg.pop(0)
@@ -535,7 +498,18 @@ class DriveTransformerAgent(autonomous_agent.AutonomousAgent):
         ego_traj_fix_dist = np.arange(1,21,dtype=np.float64).reshape(-1,1).repeat(2,1) 
         ego_traj_fix_dist[:,0] *= np.cos(angles)
         ego_traj_fix_dist[:,1] *= np.sin(angles)
-        ego_traj_fix_time = output_data_batch[0]['ego_fut_preds_fix_time'][0,selected_mode,:,[1,0]].float().cpu().numpy() 
+        ego_traj_fix_time = output_data_batch[0]['ego_fut_preds_fix_time'][0,selected_mode,:,[1,0]].float().cpu().numpy()
+        # DT 회피 디버깅 — 입력값(HLC/waypoint) + 탐지 bbox + 궤적을 프레임별 누적
+        if getattr(self, '_dbg', None) is not None and self._dbg.enabled:
+            self._dbg.record(
+                step=self.step, timestamp=self.step / 20.0,
+                command_near=tick_data['command_near'], command_far=tick_data['command_far'],
+                near_xy_world=tick_data['command_near_xy'], far_xy_world=tick_data['command_far_xy'],
+                near_xy_local=local_command_near_xy, far_xy_local=local_command_far_xy,
+                speed=tick_data['speed'], ego_lcf_feat=ego_lcf_feat, ego_pose=lidar2global,
+                det=output_data_batch[0], fix_time=ego_traj_fix_time, fix_dist=ego_traj_fix_dist,
+                angles=angles, bev=tick_data.get('bev'), cam_front=tick_data['imgs'].get('CAM_FRONT'),
+            )
         if self.step <= 20: # waiting for scenerio initialization (cars are more likely to disappear suddenly in this period)
             steer, throttle, brake = 0.0, 0.0, 1.0
         else:
@@ -608,6 +582,8 @@ class DriveTransformerAgent(autonomous_agent.AutonomousAgent):
         outfile.close()
 
     def destroy(self):
+        if getattr(self, '_dbg', None) is not None:
+            self._dbg.save()
         del self.model
         torch.cuda.empty_cache()
 
