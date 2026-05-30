@@ -20,3 +20,4 @@ Zoo/DriveTransformer/team_code/*
 !Zoo/DriveTransformer/team_code/dt_trt.py
 !Zoo/DriveTransformer/scripts/
 !Zoo/DriveTransformer/scripts/*.py
+!Zoo/DriveTransformer/scripts/*.sh
