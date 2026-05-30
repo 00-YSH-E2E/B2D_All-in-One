@@ -50,7 +50,12 @@ class DebugRecorder:
                             else os.environ.get("DT_DEBUG_SAVE_IMG", "1")) == "1"
         self.front_every = int(front_every if front_every is not None
                                else os.environ.get("DT_DEBUG_FRONT_EVERY", 10))
-        self.dir = os.path.join(base_dir, backend, tag)
+        # 같은 tag 로 여러 route 가 돌 때 서로 덮어쓰지 않도록 run_NNN 자동 증가
+        base = os.path.join(base_dir, backend, tag)
+        run_idx = 0
+        while os.path.exists(os.path.join(base, f"run_{run_idx:03d}")):
+            run_idx += 1
+        self.dir = os.path.join(base, f"run_{run_idx:03d}")
         os.makedirs(self.dir, exist_ok=True)
         if self.save_img:
             os.makedirs(os.path.join(self.dir, "bev"), exist_ok=True)
@@ -71,21 +76,27 @@ class DebugRecorder:
             return
         if self.max_frames is not None and len(self._frames) >= self.max_frames:
             return
-        boxes, scores, labels = self._extract_det(det)
-        self._frames.append(dict(
-            step=int(step), timestamp=float(timestamp),
-            command_near=int(command_near), command_far=int(command_far),
-            near_xy_world=_np(near_xy_world).reshape(-1)[:2],
-            far_xy_world=_np(far_xy_world).reshape(-1)[:2],
-            near_xy_local=_np(near_xy_local).reshape(-1)[:2],
-            far_xy_local=_np(far_xy_local).reshape(-1)[:2],
-            speed=float(speed), ego_lcf_feat=_np(ego_lcf_feat).reshape(-1),
-            ego_pose=_np(ego_pose).reshape(4, 4),
-            boxes=boxes, scores=scores, labels=labels,
-            fix_time=_np(fix_time), fix_dist=_np(fix_dist), angles=_np(angles).reshape(-1),
-        ))
-        if self.save_img:
-            self._save_img(int(step), len(self._frames) - 1, bev, cam_front)
+        # 디버그 기록은 절대 eval 을 죽이지 않는다 — 어떤 에러도 삼키고 1회만 경고.
+        try:
+            boxes, scores, labels = self._extract_det(det)
+            self._frames.append(dict(
+                step=int(step), timestamp=float(timestamp),
+                command_near=int(command_near), command_far=int(command_far),
+                near_xy_world=_np(near_xy_world).reshape(-1)[:2],
+                far_xy_world=_np(far_xy_world).reshape(-1)[:2],
+                near_xy_local=_np(near_xy_local).reshape(-1)[:2],
+                far_xy_local=_np(far_xy_local).reshape(-1)[:2],
+                speed=float(speed), ego_lcf_feat=_np(ego_lcf_feat).reshape(-1),
+                ego_pose=_np(ego_pose).reshape(4, 4),
+                boxes=boxes, scores=scores, labels=labels,
+                fix_time=_np(fix_time), fix_dist=_np(fix_dist), angles=_np(angles).reshape(-1),
+            ))
+            if self.save_img:
+                self._save_img(int(step), len(self._frames) - 1, bev, cam_front)
+        except Exception as e:
+            if not getattr(self, "_warned", False):
+                print(f"[DT-DBG] record skipped (error: {type(e).__name__}: {e})")
+                self._warned = True
 
     @staticmethod
     def _extract_det(det):
