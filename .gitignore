@@ -22,31 +22,24 @@ Zoo/DriveTransformer/team_code/*
 !Zoo/DriveTransformer/scripts/*.py
 !Zoo/DriveTransformer/scripts/*.sh
 
-# === Eval 실행 산출물 (재생성됨 / 대용량) — 추적 제외 (git 패널 24만개 도배 방지) ===
-# 디버깅 덤프: 프레임 PNG·NPZ·CSV·mp4·결과 JSON. 채점표 SCORECARD*.txt 는 추적 유지.
-Result/**/*.png
-Result/**/*.npz
-Result/**/*.csv
-Result/**/*.mp4
-Result/**/*.json
-# B2D eval 결과 JSON / run 출력 폴더 / SAVE_PATH 폴더 / dev 심링크
-B2D/all_pt.json
-B2D/all_trt.json
-B2D/full_eval_pt.json
-B2D/full_eval_trt.json
-B2D/large_eval_pt.json
-B2D/large_eval_trt.json
-B2D/genad_*.json
-B2D/result.json
-B2D/eval_bench2drive220_*.json
-B2D/*_b2d_only_traj/
-B2D/*_b2d_traj/
-B2D/ParkedObstacle_*/
-B2D/car_obstacles_*/
-B2D/gd_*/
+# === Eval 실행 산출물 — 추적 제외 (파일 타입 안 가리고 future-proof: 새 backend/실험도 자동 적용) ===
+# Result/ : 디버깅 덤프(프레임 PNG·NPZ·CSV·mp4·이미지 등) 전부 제외, 텍스트 기록(채점표 등)만 유지.
+#           → Result/GenAD 등 어떤 새 하위폴더가 생겨도 자동 적용.
+Result/**
+!Result/**/
+!Result/**/*.txt
+!Result/**/*.md
+# B2D : 결과 JSON(루트)·SAVE_PATH/체크포인트/run 출력 폴더·dev 심링크 (backend/algo 무관).
+#       추적되는 framework json 은 전부 subdir(docs/, scenario_runner/...)라 'B2D/*.json'(루트)에 안 걸림.
+B2D/*.json
+B2D/*_b2d_*/
+B2D/eval_bench2drive220_*/
 B2D/ckpt_*/
+B2D/gd_*/
 B2D/fe_*/
 B2D/le_*/
+B2D/ParkedObstacle_*/
+B2D/car_obstacles_*/
 B2D/*_trt/
 B2D/DriveTransformer
 B2D/Bench2DriveZoo
