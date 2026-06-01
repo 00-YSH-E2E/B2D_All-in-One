@@ -1,0 +1,230 @@
+=== PT vs TRT 채점표 (PT 220개 / TRT 220개 완료) ===
+
+                 route scenario                   | PTcomp cv cl | TRTcomp cv cl | 회피일치
+---------------------------------------------------------------------------------------
+RouteScenario_10857_re VehicleTurningRoutePedestr |    100  0  0 |     100  0  0 | O
+RouteScenario_11381_re VehicleTurningRoutePedestr |     36  2  0 |       1  2  4 | O
+RouteScenario_11715_re EnterActorFlow_1           |     70  0  0 |      70  0  0 | O
+RouteScenario_11755_re EnterActorFlow_1           |     70  0  0 |       5  5  0 | X (PT cv0 / TRT cv5)
+RouteScenario_14194_re PedestrianCrossing_1       |    100  0  0 |      60  1  0 | X (PT cv0 / TRT cv1)
+RouteScenario_14842_re VanillaSignalizedTurnEncou |    100  0  0 |     100  0  0 | O
+RouteScenario_14862_re VanillaSignalizedTurnEncou |    100  0  0 |     100  0  0 | O
+RouteScenario_14909_re VanillaSignalizedTurnEncou |    100  0  0 |     100  0  0 | O
+RouteScenario_1711_rep ParkingCutIn_1             |     18  0  4 |      21  0  3 | O
+RouteScenario_17563_re SequentialLaneChange_1     |    100  0  0 |     100  0  0 | O
+RouteScenario_17569_re SequentialLaneChange_1     |     36  2  0 |      36  2  0 | O
+RouteScenario_17598_re SequentialLaneChange_1     |     60  1  0 |      60  1  0 | O
+RouteScenario_17635_re SequentialLaneChange_1     |    100  0  0 |     100  0  0 | O
+RouteScenario_17655_re SequentialLaneChange_1     |    100  0  0 |     100  0  0 | O
+RouteScenario_1773_rep ParkedObstacle_1           |    100  0  0 |     100  0  0 | O
+RouteScenario_17752_re DynamicObjectCrossing_1    |    100  0  0 |      31  2  0 | X (PT cv0 / TRT cv2)
+RouteScenario_1790_rep HazardAtSideLane_1         |     60  1  0 |     100  0  0 | X (PT cv1 / TRT cv0)
+RouteScenario_1792_rep HazardAtSideLane_1         |     60  1  0 |     100  0  0 | X (PT cv1 / TRT cv0)
+RouteScenario_18252_re ParkingCrossingPedestrian_ |    100  0  0 |     100  0  0 | O
+RouteScenario_1825_rep ConstructionObstacleTwoWay |     23  0  1 |      12  0  3 | O
+RouteScenario_18305_re ParkingCutIn_1             |    100  0  0 |     100  0  0 | O
+RouteScenario_18311_re ParkingCutIn_1             |    100  0  0 |     100  0  0 | O
+RouteScenario_1833_rep ConstructionObstacleTwoWay |     26  0  1 |      25  0  1 | O
+RouteScenario_18356_re ParkingCutIn_1             |    100  0  0 |     100  0  0 | O
+RouteScenario_1852_rep AccidentTwoWays_1          |    100  0  0 |     100  0  0 | O
+RouteScenario_1956_rep ParkingExit_1              |      3  1  0 |       4  1  0 | O
+RouteScenario_2050_rep SignalizedJunctionRightTur |     60  1  0 |      60  1  0 | O
+RouteScenario_2082_rep OppositeVehicleRunningRedL |    100  0  0 |     100  0  0 | O
+RouteScenario_2084_rep NonSignalizedJunctionLeftT |     31  1  0 |       7  3  1 | O
+RouteScenario_2086_rep NonSignalizedJunctionLeftT |     19  2  0 |       4  6  0 | O
+RouteScenario_2091_rep NonSignalizedJunctionLeftT |     60  1  0 |      60  1  0 | O
+RouteScenario_20920_re ConstructionObstacleTwoWay |     18  0  4 |      18  0  4 | O
+RouteScenario_2115_rep NonSignalizedJunctionRight |     60  1  0 |      60  1  0 | O
+RouteScenario_2127_rep OppositeVehicleTakingPrior |     19  2  1 |      19  1  2 | O
+RouteScenario_2129_rep OppositeVehicleTakingPrior |     21  2  0 |      35  2  0 | O
+RouteScenario_2143_rep OppositeVehicleTakingPrior |     24  1  1 |      18  1  1 | O
+RouteScenario_2144_rep VehicleTurningRoute_1      |     60  1  0 |      60  1  0 | O
+RouteScenario_2164_rep VehicleTurningRoutePedestr |     80  0  0 |      80  0  0 | O
+RouteScenario_2201_rep EnterActorFlow_1           |      2  6  0 |      25  2  0 | O
+RouteScenario_2204_rep BlockedIntersection_1      |     39  1  1 |      12  4  0 | O
+RouteScenario_2215_rep BlockedIntersection_1      |     42  1  0 |       6  4  0 | O
+RouteScenario_2273_rep MergerIntoSlowTraffic_1    |    100  0  0 |     100  0  0 | O
+RouteScenario_2283_rep MergerIntoSlowTraffic_1    |    100  0  0 |     100  0  0 | O
+RouteScenario_2286_rep HighwayCutIn_1             |     60  1  0 |      60  1  0 | O
+RouteScenario_23658_re HighwayExit_1              |     90  0  0 |      92  0  0 | O
+RouteScenario_23659_re HighwayExit_1              |     60  1  0 |      60  1  0 | O
+RouteScenario_23670_re HighwayExit_1              |     32  1  1 |      32  1  1 | O
+RouteScenario_23687_re HighwayExit_1              |    100  0  0 |     100  0  0 | O
+RouteScenario_23695_re InterurbanAdvancedActorFlo |    100  0  0 |     100  0  0 | O
+RouteScenario_23700_re InterurbanAdvancedActorFlo |    100  0  0 |     100  0  0 | O
+RouteScenario_23708_re InterurbanAdvancedActorFlo |     60  1  0 |      60  1  0 | O
+RouteScenario_2373_rep VanillaSignalizedTurnEncou |     70  0  0 |      70  0  0 | O
+RouteScenario_23771_re MergerIntoSlowTrafficV2_1  |     60  1  0 |      60  1  0 | O
+RouteScenario_23901_re InterurbanActorFlow_1      |    100  0  0 |     100  0  0 | O
+RouteScenario_2390_rep VanillaNonSignalizedTurn_1 |     10  3  0 |      16  2  0 | O
+RouteScenario_23910_re InterurbanActorFlow_1      |     53  0  1 |      62  0  1 | O
+RouteScenario_23918_re InterurbanActorFlow_1      |     95  0  0 |      21  2  1 | X (PT cv0 / TRT cv2)
+RouteScenario_23930_re InterurbanActorFlow_1      |    100  0  0 |     100  0  0 | O
+RouteScenario_2397_rep VanillaNonSignalizedTurn_1 |     60  1  0 |     100  0  0 | X (PT cv1 / TRT cv0)
+RouteScenario_2403_rep VanillaNonSignalizedTurn_1 |     47  1  0 |      23  2  0 | O
+RouteScenario_24041_re HighwayExit_1              |     32  1  1 |      65  0  1 | X (PT cv1 / TRT cv0)
+RouteScenario_24071_re InterurbanAdvancedActorFlo |    100  0  0 |     100  0  0 | O
+RouteScenario_24078_re InterurbanAdvancedActorFlo |    100  0  0 |     100  0  0 | O
+RouteScenario_24092_re MergerIntoSlowTrafficV2_1  |    100  0  0 |     100  0  0 | O
+RouteScenario_24098_re InterurbanActorFlow_1      |     92  0  0 |      93  0  0 | O
+RouteScenario_2416_rep VanillaNonSignalizedTurnEn |    100  0  0 |     100  0  0 | O
+RouteScenario_24206_re ParkingCrossingPedestrian_ |     50  0  0 |      36  2  0 | X (PT cv0 / TRT cv2)
+RouteScenario_24211_re DynamicObjectCrossing_1    |    100  0  0 |     100  0  0 | O
+RouteScenario_24224_re DynamicObjectCrossing_1    |    100  0  0 |     100  0  0 | O
+RouteScenario_24240_re Accident_1                 |    100  0  0 |     100  0  0 | O
+RouteScenario_24252_re DynamicObjectCrossing_1    |    100  0  0 |     100  0  0 | O
+RouteScenario_24258_re HazardAtSideLaneTwoWays_1  |     36  2  0 |      11  4  0 | O
+RouteScenario_24294_re ParkingCrossingPedestrian_ |    100  0  0 |     100  0  0 | O
+RouteScenario_24330_re HardBreakRoute_1           |     36  2  0 |      36  2  0 | O
+RouteScenario_24333_re DynamicObjectCrossing_1    |     30  1  0 |      50  0  0 | X (PT cv1 / TRT cv0)
+RouteScenario_24340_re ControlLoss_1              |     60  1  0 |      60  1  0 | O
+RouteScenario_24367_re ConstructionObstacle_1     |     24  0  1 |      23  0  1 | O
+RouteScenario_24757_re ParkedObstacle_1           |    100  0  0 |     100  0  0 | O
+RouteScenario_24759_re ParkingCutIn_1             |      7  1  3 |     100  0  0 | X (PT cv1 / TRT cv0)
+RouteScenario_24781_re HardBreakRoute_1           |     21  3  0 |      13  4  0 | O
+RouteScenario_24784_re ControlLoss_1              |    100  0  0 |     100  0  0 | O
+RouteScenario_24785_re ConstructionObstacle_1     |     42  0  2 |      65  0  1 | O
+RouteScenario_24795_re ConstructionObstacle_1     |     23  2  1 |      23  2  1 | O
+RouteScenario_24816_re Accident_1                 |    100  0  0 |     100  0  0 | O
+RouteScenario_24841_re ControlLoss_1              |    100  0  0 |     100  0  0 | O
+RouteScenario_2509_rep ConstructionObstacle_1     |     27  0  3 |      25  1  2 | X (PT cv0 / TRT cv1)
+RouteScenario_2513_rep ConstructionObstacle_1     |     11  1  4 |      11  1  2 | O
+RouteScenario_25300_re HazardAtSideLane_1         |    100  0  0 |      60  1  0 | X (PT cv0 / TRT cv1)
+RouteScenario_25318_re ParkedObstacle_1           |    100  0  0 |      60  1  0 | X (PT cv0 / TRT cv1)
+RouteScenario_2534_rep Accident_1                 |    100  0  0 |      60  1  0 | X (PT cv0 / TRT cv1)
+RouteScenario_25358_re StaticCutIn_1              |    100  0  0 |     100  0  0 | O
+RouteScenario_25378_re YieldToEmergencyVehicle_1  |     70  0  0 |      70  0  0 | O
+RouteScenario_25381_re HazardAtSideLane_1         |    100  0  0 |     100  0  0 | O
+RouteScenario_25383_re ParkedObstacle_1           |    100  0  0 |     100  0  0 | O
+RouteScenario_2539_rep Accident_1                 |    100  0  0 |     100  0  0 | O
+RouteScenario_25424_re ConstructionObstacleTwoWay |     34  0  1 |      23  0  2 | O
+RouteScenario_25439_re HazardAtSideLane_1         |     60  1  0 |     100  0  0 | X (PT cv1 / TRT cv0)
+RouteScenario_2554_rep ParkedObstacle_1           |    100  0  0 |     100  0  0 | O
+RouteScenario_25845_re AccidentTwoWays_1          |     28  1  0 |     100  0  0 | X (PT cv1 / TRT cv0)
+RouteScenario_25854_re HazardAtSideLaneTwoWays_1  |    100  0  0 |     100  0  0 | O
+RouteScenario_25857_re AccidentTwoWays_1          |     16  2  0 |      13  4  0 | O
+RouteScenario_25863_re PedestrianCrossing_1       |     35  0  0 |      35  0  0 | O
+RouteScenario_25865_re ParkedObstacleTwoWays_1    |     60  1  0 |      60  1  0 | O
+RouteScenario_25896_re ParkedObstacleTwoWays_1    |     60  1  0 |      60  1  0 | O
+RouteScenario_25928_re VehicleOpensDoorTwoWays_1  |     22  3  0 |      22  3  0 | O
+RouteScenario_25951_re HazardAtSideLaneTwoWays_1  |      4  6  0 |      12  2  0 | O
+RouteScenario_25955_re HazardAtSideLaneTwoWays_1  |    100  0  0 |     100  0  0 | O
+RouteScenario_25968_re VanillaSignalizedTurnEncou |     69  0  0 |      39  1  0 | X (PT cv0 / TRT cv1)
+RouteScenario_25975_re VanillaSignalizedTurnEncou |    100  0  0 |     100  0  0 | O
+RouteScenario_2606_rep ConstructionObstacleTwoWay |     26  0  1 |      27  0  1 | O
+RouteScenario_26393_re ParkingExit_1              |      2  1  0 |       2  1  0 | O
+RouteScenario_26394_re MergerIntoSlowTrafficV2_1  |     47  0  0 |      46  0  0 | O
+RouteScenario_26396_re StaticCutIn_1              |     42  0  2 |      18  0  3 | O
+RouteScenario_26401_re MergerIntoSlowTrafficV2_1  |    100  0  0 |     100  0  0 | O
+RouteScenario_26405_re StaticCutIn_1              |      5  4  0 |       0  9  0 | O
+RouteScenario_26406_re HardBreakRoute_1           |     13  4  0 |       8  5  0 | O
+RouteScenario_26408_re MergerIntoSlowTrafficV2_1  |     46  0  0 |      46  0  0 | O
+RouteScenario_26418_re ControlLoss_1              |    100  0  0 |     100  0  0 | O
+RouteScenario_26435_re ParkingExit_1              |      1  1  0 |       1  1  0 | O
+RouteScenario_2643_rep AccidentTwoWays_1          |     60  1  0 |      36  1  0 | O
+RouteScenario_26456_re HardBreakRoute_1           |     36  2  0 |      60  1  0 | O
+RouteScenario_26458_re T_Junction_1               |     82  0  0 |      34  0  1 | O
+RouteScenario_2664_rep ParkedObstacleTwoWays_1    |    100  0  0 |     100  0  0 | O
+RouteScenario_2668_rep ParkedObstacleTwoWays_1    |     60  1  0 |      60  1  0 | O
+RouteScenario_26944_re OppositeVehicleRunningRedL |     23  1  1 |      23  1  1 | O
+RouteScenario_26950_re OppositeVehicleRunningRedL |    100  0  0 |     100  0  0 | O
+RouteScenario_26956_re SignalizedJunctionRightTur |     25  2  0 |      22  3  0 | O
+RouteScenario_26966_re SignalizedJunctionRightTur |     60  1  0 |      60  1  0 | O
+RouteScenario_26990_re NonSignalizedJunctionLeftT |     42  1  0 |      70  0  0 | X (PT cv1 / TRT cv0)
+RouteScenario_27018_re SignalizedJunctionRightTur |      6  3  1 |      42  1  0 | O
+RouteScenario_2709_rep StaticCutIn_1              |    100  0  0 |     100  0  0 | O
+RouteScenario_2715_rep StaticCutIn_1              |    100  0  0 |     100  0  0 | O
+RouteScenario_27494_re BlockedIntersection_1      |     60  1  0 |     100  0  0 | X (PT cv1 / TRT cv0)
+RouteScenario_27506_re EnterActorFlow_1           |     36  2  0 |      36  2  0 | O
+RouteScenario_27515_re PedestrianCrossing_1       |     70  0  0 |      70  0  0 | O
+RouteScenario_27529_re PedestrianCrossing_1       |     25  0  0 |      40  0  0 | O
+RouteScenario_27532_re BlockedIntersection_1      |      7  4  0 |       8  3  0 | O
+RouteScenario_27582_re PedestrianCrossing_1       |     70  0  0 |      70  0  0 | O
+RouteScenario_2790_rep InvadingTurn_1             |     10  3  1 |      39  1  0 | O
+RouteScenario_2802_rep InvadingTurn_1             |     19  2  0 |       5  4  1 | O
+RouteScenario_28035_re T_Junction_1               |     70  0  0 |      70  0  0 | O
+RouteScenario_28048_re T_Junction_1               |     70  0  0 |      70  0  0 | O
+RouteScenario_28087_re NonSignalizedJunctionLeftT |     48  1  0 |      48  1  0 | O
+RouteScenario_28093_re NonSignalizedJunctionLeftT |     48  1  0 |      48  1  0 | O
+RouteScenario_28099_re SignalizedJunctionLeftTurn |     60  1  0 |      60  1  0 | O
+RouteScenario_28111_re T_Junction_1               |     98  0  0 |      96  0  0 | O
+RouteScenario_28154_re T_Junction_1               |     60  1  0 |      36  2  0 | O
+RouteScenario_28198_re SignalizedJunctionLeftTurn |     70  0  0 |     100  0  0 | O
+RouteScenario_28210_re NonSignalizedJunctionLeftT |     10  2  1 |     100  0  0 | X (PT cv2 / TRT cv0)
+RouteScenario_28219_re NonSignalizedJunctionLeftT |     99  0  0 |      99  0  0 | O
+RouteScenario_28229_re NonSignalizedJunctionLeftT |     42  1  0 |      42  1  0 | O
+RouteScenario_28241_re SignalizedJunctionLeftTurn |     70  0  0 |      70  0  0 | O
+RouteScenario_28243_re SignalizedJunctionLeftTurn |     60  1  0 |      60  1  0 | O
+RouteScenario_28330_re SignalizedJunctionLeftTurn |     42  1  0 |      42  1  0 | O
+RouteScenario_2844_rep OppositeVehicleRunningRedL |     27  1  0 |      26  1  0 | O
+RouteScenario_2847_rep OppositeVehicleRunningRedL |     17  2  0 |      29  1  0 | O
+RouteScenario_2881_rep NonSignalizedJunctionLeftT |     60  1  0 |      60  1  0 | O
+RouteScenario_2903_rep NonSignalizedJunctionRight |    100  0  0 |     100  0  0 | O
+RouteScenario_2913_rep OppositeVehicleTakingPrior |      4  2  3 |      26  2  0 | O
+RouteScenario_2943_rep VehicleTurningRoute_1      |     60  1  0 |      36  2  0 | O
+RouteScenario_2989_rep BlockedIntersection_1      |     60  1  0 |      60  1  0 | O
+RouteScenario_3048_rep MergerIntoSlowTraffic_1    |    100  0  0 |     100  0  0 | O
+RouteScenario_3072_rep HighwayCutIn_1             |    100  0  0 |     100  0  0 | O
+RouteScenario_3074_rep HighwayCutIn_1             |    100  0  0 |     100  0  0 | O
+RouteScenario_3080_rep HighwayCutIn_1             |    100  0  0 |     100  0  0 | O
+RouteScenario_3086_rep CrossingBicycleFlow_1      |    100  0  0 |     100  0  0 | O
+RouteScenario_3090_rep CrossingBicycleFlow_1      |    100  0  0 |      70  0  0 | O
+RouteScenario_3093_rep CrossingBicycleFlow_1      |    100  0  0 |      70  0  0 | O
+RouteScenario_3099_rep CrossingBicycleFlow_1      |     52  1  0 |      52  1  0 | O
+RouteScenario_3100_rep CrossingBicycleFlow_1      |    100  0  0 |     100  0  0 | O
+RouteScenario_3144_rep VanillaSignalizedTurnEncou |     70  0  0 |      70  0  0 | O
+RouteScenario_3178_rep VanillaNonSignalizedTurn_1 |     25  1  0 |      25  1  0 | O
+RouteScenario_3184_rep VanillaNonSignalizedTurnEn |     72  0  0 |     100  0  0 | O
+RouteScenario_3189_rep VanillaNonSignalizedTurnEn |    100  0  0 |     100  0  0 | O
+RouteScenario_3248_rep ParkingCrossingPedestrian_ |      3  4  0 |     100  0  0 | X (PT cv4 / TRT cv0)
+RouteScenario_3255_rep ParkingCrossingPedestrian_ |     36  2  0 |      36  2  0 | O
+RouteScenario_3307_rep Accident_1                 |     60  1  0 |     100  0  0 | X (PT cv1 / TRT cv0)
+RouteScenario_3364_rep YieldToEmergencyVehicle_1  |     70  0  0 |      70  0  0 | O
+RouteScenario_3373_rep YieldToEmergencyVehicle_1  |    100  0  0 |      70  0  0 | O
+RouteScenario_3378_rep YieldToEmergencyVehicle_1  |     70  0  0 |       7  3  0 | X (PT cv0 / TRT cv3)
+RouteScenario_3380_rep YieldToEmergencyVehicle_1  |     70  0  0 |      70  0  0 | O
+RouteScenario_3410_rep AccidentTwoWays_1          |     15  2  0 |      10  3  0 | O
+RouteScenario_3436_rep HazardAtSideLaneTwoWays_1  |    100  0  0 |     100  0  0 | O
+RouteScenario_3457_rep ParkedObstacleTwoWays_1    |     22  3  0 |      13  4  0 | O
+RouteScenario_3464_rep VehicleOpensDoorTwoWays_1  |    100  0  0 |     100  0  0 | O
+RouteScenario_3472_rep VehicleOpensDoorTwoWays_1  |    100  0  0 |     100  0  0 | O
+RouteScenario_3476_rep VehicleOpensDoorTwoWays_1  |    100  0  0 |     100  0  0 | O
+RouteScenario_3482_rep VehicleOpensDoorTwoWays_1  |    100  0  0 |     100  0  0 | O
+RouteScenario_3514_rep ParkingExit_1              |    100  0  0 |     100  0  0 | O
+RouteScenario_3520_rep ParkingExit_1              |    100  0  0 |     100  0  0 | O
+RouteScenario_3540_rep HardBreakRoute_1           |     60  1  0 |      60  1  0 | O
+RouteScenario_3561_rep ControlLoss_1              |    100  0  0 |     100  0  0 | O
+RouteScenario_3564_rep InvadingTurn_1             |     23  2  0 |      22  2  0 | O
+RouteScenario_3572_rep InvadingTurn_1             |    100  0  0 |     100  0  0 | O
+RouteScenario_3575_rep InvadingTurn_1             |    100  0  0 |     100  0  0 | O
+RouteScenario_3666_rep NonSignalizedJunctionRight |     60  1  0 |      60  1  0 | O
+RouteScenario_3670_rep NonSignalizedJunctionRight |     39  1  1 |      60  1  0 | O
+RouteScenario_3676_rep NonSignalizedJunctionRight |     11  3  0 |       4  5  0 | O
+RouteScenario_3697_rep OppositeVehicleTakingPrior |     14  3  0 |      13  3  0 | O
+RouteScenario_3708_rep VehicleTurningRoute_1      |     15  2  0 |       2  6  0 | O
+RouteScenario_3712_rep VehicleTurningRoute_1      |     80  0  0 |      80  0  0 | O
+RouteScenario_3717_rep VehicleTurningRoute_1      |      0  0  0 |      48  1  0 | X (PT cv0 / TRT cv1)
+RouteScenario_3731_rep VehicleTurningRoutePedestr |      5  6  0 |      13  4  0 | O
+RouteScenario_3737_rep VehicleTurningRoutePedestr |     36  2  0 |      36  2  0 | O
+RouteScenario_3749_rep EnterActorFlow_1           |     70  0  0 |      70  0  0 | O
+RouteScenario_3785_rep MergerIntoSlowTraffic_1    |    100  0  0 |     100  0  0 | O
+RouteScenario_3800_rep MergerIntoSlowTraffic_1    |    100  0  0 |     100  0  0 | O
+RouteScenario_3813_rep HighwayCutIn_1             |    100  0  0 |     100  0  0 | O
+RouteScenario_3865_rep VanillaSignalizedTurnEncou |     70  0  0 |      70  0  0 | O
+RouteScenario_3869_rep VanillaSignalizedTurnEncou |     70  0  0 |      70  0  0 | O
+RouteScenario_3876_rep VanillaSignalizedTurnEncou |    100  0  0 |      70  0  0 | O
+RouteScenario_3890_rep VanillaNonSignalizedTurn_1 |    100  0  0 |     100  0  0 | O
+RouteScenario_3904_rep VanillaNonSignalizedTurnEn |    100  0  0 |      80  0  0 | O
+RouteScenario_3905_rep VanillaNonSignalizedTurnEn |    100  0  0 |     100  0  0 | O
+RouteScenario_3936_rep SignalizedJunctionLeftTurn |      9  3  0 |      25  1  0 | O
+RouteScenario_4183_rep SignalizedJunctionLeftTurn |     20  1  0 |       7  4  0 | O
+RouteScenario_4468_rep SignalizedJunctionLeftTurn |     27  1  1 |      36  2  0 | O
+RouteScenario_4669_rep SignalizedJunctionLeftTurn |     60  1  0 |      36  2  0 | O
+RouteScenario_4683_rep SignalizedJunctionLeftTurn |     60  1  0 |      60  1  0 | O
+RouteScenario_4937_rep SignalizedJunctionRightTur |    100  0  0 |      60  1  0 | X (PT cv0 / TRT cv1)
+
+=== 요약 ===
+  둘 다 완료한 route: 220
+  PT  평균 driving score(composed): 64.0
+  TRT 평균 driving score(composed): 63.7
+  차량회피 일치(둘 다 충돌0 또는 둘 다 충돌): 194/220 (88%)

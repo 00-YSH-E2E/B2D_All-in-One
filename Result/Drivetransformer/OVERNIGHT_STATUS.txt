@@ -1,0 +1,29 @@
+[05-30 15:16:17] START — DT 220 route 전체 PT vs TRT (단일 순차)
+[05-30 15:16:18] route 빌드: 표준 55 / 대형 165
+[05-30 15:16:18] [Phase A] 표준 55 — PT 시작
+[05-30 18:01:22]   full_pt 완료 (records=55)
+[05-30 18:01:22] [Phase A] 표준 55 — TRT 시작
+[05-30 20:53:34]   full_trt 완료 (records=55)
+[05-30 20:53:39] [Phase A] 채점표 → SCORECARD.txt
+[05-30 20:53:39] [Phase B] 대형 165 — PT 시작
+[05-31 04:51:22]   large_pt 완료 (records=91)
+[05-31 04:51:22] [Phase B] 대형 165 — TRT 시작
+[05-31 13:04:43]   large_trt 완료 (records=105)
+[05-31 13:04:48] [Phase B] 채점표 → SCORECARD_LARGE.txt
+[05-31 13:04:48] 전체 220 채점표 → SCORECARD_FULL.txt
+[05-31 13:04:48] ALL DONE — 220 route 전체 eval 완료
+[05-31 14:10:18] RESUME START — 대형맵 이어서 (PT 91/165, TRT 105/165)
+[05-31 14:10:18]   large_pt 진행 91/165 — run_evaluation(resume) 시도 (stall=0)
+[05-31 20:27:57]   large_pt 진행 161/165 — run_evaluation(resume) 시도 (stall=0)
+[05-31 20:37:18]   large_pt 완료 (165/165)
+[05-31 20:37:18]   large_trt 진행 105/165 — run_evaluation(resume) 시도 (stall=0)
+[06-01 00:13:17]   large_trt 완료 (165/165)
+[06-01 00:13:22] 대형맵 채점표 갱신 → SCORECARD_LARGE.txt
+[06-01 00:13:22] 전체 220 채점표 갱신 → SCORECARD_FULL.txt
+[06-01 00:13:22] RESUME ALL DONE — PT 165/165, TRT 165/165
+[06-01 12:48:10] RESUME START — 대형맵 이어서 (PT 165/165, TRT 165/165)
+[06-01 12:48:10]   large_pt 완료 (165/165)
+[06-01 12:48:10]   large_trt 완료 (165/165)
+[06-01 12:48:15] 대형맵 채점표 갱신 → SCORECARD_LARGE.txt
+[06-01 12:48:15] 전체 220 채점표 갱신 → SCORECARD_FULL.txt
+[06-01 12:48:15] RESUME ALL DONE — PT 165/165, TRT 165/165

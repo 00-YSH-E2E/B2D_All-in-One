@@ -21,3 +21,32 @@ Zoo/DriveTransformer/team_code/*
 !Zoo/DriveTransformer/scripts/
 !Zoo/DriveTransformer/scripts/*.py
 !Zoo/DriveTransformer/scripts/*.sh
+
+# === Eval 실행 산출물 (재생성됨 / 대용량) — 추적 제외 (git 패널 24만개 도배 방지) ===
+# 디버깅 덤프: 프레임 PNG·NPZ·CSV·mp4·결과 JSON. 채점표 SCORECARD*.txt 는 추적 유지.
+Result/**/*.png
+Result/**/*.npz
+Result/**/*.csv
+Result/**/*.mp4
+Result/**/*.json
+# B2D eval 결과 JSON / run 출력 폴더 / SAVE_PATH 폴더 / dev 심링크
+B2D/all_pt.json
+B2D/all_trt.json
+B2D/full_eval_pt.json
+B2D/full_eval_trt.json
+B2D/large_eval_pt.json
+B2D/large_eval_trt.json
+B2D/genad_*.json
+B2D/result.json
+B2D/eval_bench2drive220_*.json
+B2D/*_b2d_only_traj/
+B2D/*_b2d_traj/
+B2D/ParkedObstacle_*/
+B2D/car_obstacles_*/
+B2D/gd_*/
+B2D/ckpt_*/
+B2D/fe_*/
+B2D/le_*/
+B2D/*_trt/
+B2D/DriveTransformer
+B2D/Bench2DriveZoo

@@ -1,0 +1,65 @@
+=== PT vs TRT 채점표 (PT 55개 / TRT 55개 완료) ===
+
+                 route scenario                   | PTcomp cv cl | TRTcomp cv cl | 회피일치
+---------------------------------------------------------------------------------------
+RouteScenario_24206_re ParkingCrossingPedestrian_ |     50  0  0 |      36  2  0 | X (PT cv0 / TRT cv2)
+RouteScenario_24211_re DynamicObjectCrossing_1    |    100  0  0 |     100  0  0 | O
+RouteScenario_24224_re DynamicObjectCrossing_1    |    100  0  0 |     100  0  0 | O
+RouteScenario_24240_re Accident_1                 |    100  0  0 |     100  0  0 | O
+RouteScenario_24258_re HazardAtSideLaneTwoWays_1  |     36  2  0 |      11  4  0 | O
+RouteScenario_24294_re ParkingCrossingPedestrian_ |    100  0  0 |     100  0  0 | O
+RouteScenario_24330_re HardBreakRoute_1           |     36  2  0 |      36  2  0 | O
+RouteScenario_24340_re ControlLoss_1              |     60  1  0 |      60  1  0 | O
+RouteScenario_24367_re ConstructionObstacle_1     |     24  0  1 |      23  0  1 | O
+RouteScenario_24757_re ParkedObstacle_1           |    100  0  0 |     100  0  0 | O
+RouteScenario_24759_re ParkingCutIn_1             |      7  1  3 |     100  0  0 | X (PT cv1 / TRT cv0)
+RouteScenario_24781_re HardBreakRoute_1           |     21  3  0 |      13  4  0 | O
+RouteScenario_24784_re ControlLoss_1              |    100  0  0 |     100  0  0 | O
+RouteScenario_24785_re ConstructionObstacle_1     |     42  0  2 |      65  0  1 | O
+RouteScenario_24795_re ConstructionObstacle_1     |     23  2  1 |      23  2  1 | O
+RouteScenario_24816_re Accident_1                 |    100  0  0 |     100  0  0 | O
+RouteScenario_24841_re ControlLoss_1              |    100  0  0 |     100  0  0 | O
+RouteScenario_25300_re HazardAtSideLane_1         |    100  0  0 |      60  1  0 | X (PT cv0 / TRT cv1)
+RouteScenario_25318_re ParkedObstacle_1           |    100  0  0 |      60  1  0 | X (PT cv0 / TRT cv1)
+RouteScenario_25358_re StaticCutIn_1              |    100  0  0 |     100  0  0 | O
+RouteScenario_25378_re YieldToEmergencyVehicle_1  |     70  0  0 |      70  0  0 | O
+RouteScenario_25381_re HazardAtSideLane_1         |    100  0  0 |     100  0  0 | O
+RouteScenario_25854_re HazardAtSideLaneTwoWays_1  |    100  0  0 |     100  0  0 | O
+RouteScenario_25857_re AccidentTwoWays_1          |     16  2  0 |      13  4  0 | O
+RouteScenario_25863_re PedestrianCrossing_1       |     35  0  0 |      35  0  0 | O
+RouteScenario_25896_re ParkedObstacleTwoWays_1    |     60  1  0 |      60  1  0 | O
+RouteScenario_25951_re HazardAtSideLaneTwoWays_1  |      4  6  0 |      12  2  0 | O
+RouteScenario_25955_re HazardAtSideLaneTwoWays_1  |    100  0  0 |     100  0  0 | O
+RouteScenario_25968_re VanillaSignalizedTurnEncou |     69  0  0 |      39  1  0 | X (PT cv0 / TRT cv1)
+RouteScenario_25975_re VanillaSignalizedTurnEncou |    100  0  0 |     100  0  0 | O
+RouteScenario_26393_re ParkingExit_1              |      2  1  0 |       2  1  0 | O
+RouteScenario_26394_re MergerIntoSlowTrafficV2_1  |     47  0  0 |      46  0  0 | O
+RouteScenario_26396_re StaticCutIn_1              |     42  0  2 |      18  0  3 | O
+RouteScenario_26401_re MergerIntoSlowTrafficV2_1  |    100  0  0 |     100  0  0 | O
+RouteScenario_26406_re HardBreakRoute_1           |     13  4  0 |       8  5  0 | O
+RouteScenario_26408_re MergerIntoSlowTrafficV2_1  |     46  0  0 |      46  0  0 | O
+RouteScenario_26435_re ParkingExit_1              |      1  1  0 |       1  1  0 | O
+RouteScenario_26456_re HardBreakRoute_1           |     36  2  0 |      60  1  0 | O
+RouteScenario_26458_re T_Junction_1               |     82  0  0 |      34  0  1 | O
+RouteScenario_26944_re OppositeVehicleRunningRedL |     23  1  1 |      23  1  1 | O
+RouteScenario_26950_re OppositeVehicleRunningRedL |    100  0  0 |     100  0  0 | O
+RouteScenario_26956_re SignalizedJunctionRightTur |     25  2  0 |      22  3  0 | O
+RouteScenario_26966_re SignalizedJunctionRightTur |     60  1  0 |      60  1  0 | O
+RouteScenario_26990_re NonSignalizedJunctionLeftT |     42  1  0 |      70  0  0 | X (PT cv1 / TRT cv0)
+RouteScenario_27494_re BlockedIntersection_1      |     60  1  0 |     100  0  0 | X (PT cv1 / TRT cv0)
+RouteScenario_27506_re EnterActorFlow_1           |     36  2  0 |      36  2  0 | O
+RouteScenario_27515_re PedestrianCrossing_1       |     70  0  0 |      70  0  0 | O
+RouteScenario_27529_re PedestrianCrossing_1       |     25  0  0 |      40  0  0 | O
+RouteScenario_28035_re T_Junction_1               |     70  0  0 |      70  0  0 | O
+RouteScenario_28048_re T_Junction_1               |     70  0  0 |      70  0  0 | O
+RouteScenario_28087_re NonSignalizedJunctionLeftT |     48  1  0 |      48  1  0 | O
+RouteScenario_28093_re NonSignalizedJunctionLeftT |     48  1  0 |      48  1  0 | O
+RouteScenario_28099_re SignalizedJunctionLeftTurn |     60  1  0 |      60  1  0 | O
+RouteScenario_28111_re T_Junction_1               |     98  0  0 |      96  0  0 | O
+RouteScenario_28154_re T_Junction_1               |     60  1  0 |      36  2  0 | O
+
+=== 요약 ===
+  둘 다 완료한 route: 55
+  PT  평균 driving score(composed): 60.3
+  TRT 평균 driving score(composed): 59.6
+  차량회피 일치(둘 다 충돌0 또는 둘 다 충돌): 48/55 (87%)
