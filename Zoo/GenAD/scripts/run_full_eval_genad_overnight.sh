@@ -2,11 +2,11 @@
 # GenAD 220 route 전체 PT vs TRT eval (DT의 run_full_eval_overnight 미러 + crash 재시도 루프 내장).
 # 표준55(Town01-07,10HD) → 대형165(Town11/12/13/15), 각 PT→TRT, 단계별+전체 채점표.
 #
-# ⚠️ TRT 주의 — GenAD TRT는 TRT 8.6 기반(backbone만 TRT fp16, head는 ONNX parser 한계로 PT fallback).
-#    /tmp/trt86_sdk/lib(libnvinfer.so.8) 필요. 그런데 현재 env엔 DT용으로 올린 TRT 10.8 python wheel이
-#    깔려 있어 GenAD TRT backbone 엔진(8.6) 로드가 깨질 수 있음. TRT phase를 돌리려면 먼저:
-#        pip install tensorrt-cu11==8.6.1   (※ 이러면 DT TRT가 깨지지만 DT eval은 이미 끝나 무방)
-#    PyTorch backend는 env와 무관하게 바로 됨 → 우선 PT부터 검증 권장.
+# 2026.06.03 _ YSH _ TRT 8.6 → 10.8 전환. 새 deterministic 엔진(backbone fp16 + head fp32,
+#    prev_bev 5입력)이 TRT 10.8 로 빌드됨. head 도 완전 TRT(과거 PT fallback 폐기 — TRT 10.8
+#    parser 가 If/GRU 처리). b2d_zoo 의 tensorrt-cu11==10.8.0.43 이 그대로 로드(검증 완료).
+#    /tmp/trt86_sdk/lib(8.6) prepend 제거 — 붙이면 10.8 과 충돌. 엔진은
+#    Model/genad/{backbone,head}/genad_*_trt86.engine (이름만 legacy, 실제 TRT 10.8 → 새 엔진 symlink).
 #    TRT 건너뛰려면: SKIP_TRT=1 환경변수로 실행.
 B=/home/Humble/Humble/EndtoEnd/Carla/Bench2Drive
 RES=$B/Result/GenAD
@@ -20,10 +20,10 @@ source /home/Humble/Setting/miniconda3/etc/profile.d/conda.sh
 conda activate b2d_zoo
 cd "$B/B2D" || exit 1
 export B2D_MODEL=$B/Model
-export GENAD_DUMP_DIR=$RES/dump          # 디버깅 dump (무거우면 빈값으로: export GENAD_DUMP_DIR=)
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/tmp/trt86_sdk/lib   # GenAD TRT 8.6 libs
+export GENAD_DUMP_DIR=                    # 220 route 전체 run 은 per-step dump OFF (디스크 폭증 방지)
+# (TRT 8.6 LD_LIBRARY_PATH prepend 제거 — b2d_zoo 의 TRT 10.8 wheel 이 자체 lib 번들)
 TEAM_CONFIG="Bench2DriveZoo/adzoo/genad/configs/VAD/GenAD_config_b2d.py+$B2D_MODEL/genad/pth/epoch_6.pth"
-AGENT=team_code/vad_b2d_agent.py
+AGENT=Bench2DriveZoo/team_code/vad_b2d_agent.py
 PLANNER=traj
 SKIP_TRT=${SKIP_TRT:-0}
 
